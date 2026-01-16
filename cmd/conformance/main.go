@@ -31,6 +31,7 @@ var certSAN *string
 var identityToken *string
 var trustedRootPath *string
 var signingConfigPath *string
+var keyPath *string
 
 func usage() {
 	fmt.Println("Usage:")
@@ -64,6 +65,9 @@ func parseArgs() {
 			i += 2
 		case "--signing-config":
 			signingConfigPath = &os.Args[i+1]
+			i += 2
+		case "--key":
+			keyPath = &os.Args[i+1]
 			i += 2
 		default:
 			i++
@@ -127,6 +131,9 @@ func main() {
 	}
 	if signingConfigPath != nil {
 		args = append(args, "--signing-config", *signingConfigPath)
+	}
+	if keyPath != nil {
+		args = append(args, "--key", *keyPath)
 	}
 	args = append(args, os.Args[len(os.Args)-1])
 
